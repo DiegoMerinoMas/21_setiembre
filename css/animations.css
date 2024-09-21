@@ -4,10 +4,14 @@
   }
 }
 
-@keyframes open-flowe--middle {
+@keyframes open-flower--middle {
   0% {
     opacity: 0;
     transform: translateX(-50%) scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
   }
 }
 

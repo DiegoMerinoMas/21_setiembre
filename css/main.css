@@ -22,11 +22,8 @@ body {
 }
 .flower-container {
   position: relative;
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  width: 20vmin;
+  height: 30vmin;
 }
 
 .flower__glass {
