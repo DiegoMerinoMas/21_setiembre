@@ -40,10 +40,21 @@
   0% {
     transform: rotate(-50deg);
   }
+  25% {
+    bottom: 1vmin;
+    transform: rotateX(-100deg);
+    perspective: 0px;
+  }
   50% {
+    perspective: 0px;
     transform: translate(-30vmin, 2vmin) rotate(90deg);
   }
+  75% {
+    perspective: 0px;
+    transform: translate(-34vmin, -2vmin);
+  }
   100% {
+    transform-origin: center;
     transform: translate(-34vmin, -2vmin) rotateY(-80deg) rotateX(35deg);
   }
 }
@@ -56,4 +67,17 @@
   50% {
     transform: translate(-32vmin, -4.2vmin) rotateY(-80deg) rotateX(35deg);
   }
+}
+/* Modificaciones en animations.css */
+.flower__fall-down--yellow {
+  animation: flower-fall-down-yellow 8s 1.2s linear forwards;
+}
+
+.flower__fall-down--pink {
+  animation: flower-fall-down-pink 5s 1.2s linear forwards;
+}
+
+.flower__fall-down--purple {
+  animation: flower-fall-down-purple 6s 1.2s linear forwards,
+    flower-falling 6s 7.2s linear infinite;
 }
