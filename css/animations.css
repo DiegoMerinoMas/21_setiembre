@@ -1,0 +1,59 @@
+@keyframes open-flower {
+  0% {
+    transform: translateX(-50%) rotate(0);
+  }
+}
+
+@keyframes open-flowe--middle {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+  }
+}
+
+@keyframes flower-fall-down-pink {
+  0% {
+    transform: rotate(-55deg);
+  }
+  50% {
+    transform: rotateX(-100deg);
+  }
+  100% {
+    transform: translate(2vmin, 28vmin);
+  }
+}
+
+@keyframes flower-fall-down-yellow {
+  0% {
+    transform: rotate(-55deg);
+  }
+  50% {
+    bottom: 3vmin;
+    transform: rotateX(-100deg);
+  }
+  100% {
+    transform: translate(2vmin, 70vmin) rotate(150deg);
+  }
+}
+
+@keyframes flower-fall-down-purple {
+  0% {
+    transform: rotate(-50deg);
+  }
+  50% {
+    transform: translate(-30vmin, 2vmin) rotate(90deg);
+  }
+  100% {
+    transform: translate(-34vmin, -2vmin) rotateY(-80deg) rotateX(35deg);
+  }
+}
+
+@keyframes flower-falling {
+  0%,
+  100% {
+    transform: translate(-34vmin, -2vmin) rotateY(-80deg) rotateX(35deg);
+  }
+  50% {
+    transform: translate(-32vmin, -4.2vmin) rotateY(-80deg) rotateX(35deg);
+  }
+}
