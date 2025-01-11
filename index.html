@@ -67,6 +67,12 @@
       <div class="flower__glass"></div>
     </div>
     <audio id="cancionFlores" src="assets\floresAmarillas.m4a"></audio>
-    <script src="js/app.js"></script>
+    <script>
+      // Detectar el primer clic para reproducir el audio
+      document.body.addEventListener("click", () => {
+        const audio = document.getElementById("cancionFlores");
+        audio.play();
+      });
+    </script>
   </body>
 </html>
