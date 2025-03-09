@@ -1,0 +1,172 @@
+/* Nuevo archivo animations-8marzo.css */
+@keyframes open-flower {
+    0% {
+      transform: translateX(-50%) rotate(0);
+    }
+    50% {
+      transform: translateX(-50%) rotate(180deg);
+    }
+    100% {
+      transform: translateX(-50%) rotate(360deg);
+    }
+  }
+  
+  @keyframes open-flower--middle {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+  }
+  
+  @keyframes flower-fall-down-pink {
+    0% {
+      transform: rotate(-55deg);
+    }
+    50% {
+      transform: rotateX(-100deg);
+    }
+    100% {
+      transform: translate(2vmin, 28vmin);
+    }
+  }
+  
+  @keyframes flower-fall-down-yellow {
+    0% {
+      transform: rotate(-55deg);
+    }
+    50% {
+      bottom: 3vmin;
+      transform: rotateX(-100deg);
+    }
+    100% {
+      transform: translate(2vmin, 70vmin) rotate(150deg);
+    }
+  }
+  
+  @keyframes flower-fall-down-purple {
+    0% {
+      transform: rotate(-50deg);
+    }
+    25% {
+      bottom: 1vmin;
+      transform: rotateX(-100deg);
+      perspective: 0px;
+    }
+    50% {
+      perspective: 0px;
+      transform: translate(-30vmin, 2vmin) rotate(90deg);
+    }
+    75% {
+      perspective: 0px;
+      transform: translate(-34vmin, -2vmin);
+    }
+    100% {
+      transform-origin: center;
+      transform: translate(-34vmin, -2vmin) rotateY(-80deg) rotateX(35deg);
+    }
+  }
+  
+  @keyframes flower-falling {
+    0%,
+    100% {
+      transform: translate(-34vmin, -2vmin) rotateY(-80deg) rotateX(35deg);
+    }
+    50% {
+      transform: translate(-32vmin, -4.2vmin) rotateY(-80deg) rotateX(35deg);
+    }
+  }
+  
+  /* Glow effect para las flores */
+  @keyframes glow {
+    0%, 100% {
+      filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.6));
+    }
+    50% {
+      filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.9));
+    }
+  }
+  
+  .flower__leaf {
+    animation: glow 3s ease-in-out infinite;
+  }
+  
+  /* Efecto de aparición para cada pétalo */
+  .flower__leaf--2 {
+    animation-delay: 0.2s;
+  }
+  .flower__leaf--3 {
+    animation-delay: 0.4s;
+  }
+  .flower__leaf--4 {
+    animation-delay: 0.6s;
+  }
+  .flower__leaf--5 {
+    animation-delay: 0.8s;
+  }
+  .flower__leaf--6 {
+    animation-delay: 1s;
+  }
+  .flower__leaf--7 {
+    animation-delay: 1.2s;
+  }
+  
+  /* Color del agua modificado para 8 de marzo */
+  :root {
+    --color-bg: linear-gradient(to top, #1a0329, #000005);
+    --color-glass: linear-gradient(to left, #142544, #801a90);
+    --color-water: linear-gradient(to left, #142544, #6e1a6d);
+  }
+  
+  /* Efecto de brillo para el agua */
+  .flower__glass::before {
+    animation: water-shimmer 6s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Efecto de ondas en el agua */
+  .flower__glass::before::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    animation: wave-effect 8s linear infinite;
+  }
+  
+  @keyframes wave-effect {
+    0% { transform: translateX(-50%) rotate(45deg); }
+    100% { transform: translateX(0%) rotate(45deg); }
+  }
+  
+  @keyframes water-shimmer {
+    0%, 100% {
+      background-image: linear-gradient(to left, #142544, #6e1a6d);
+      box-shadow: 0 0 15px rgba(147, 112, 219, 0.3) inset;
+    }
+    50% {
+      background-image: linear-gradient(to left, #142544, #801a90);
+      box-shadow: 0 0 25px rgba(147, 112, 219, 0.5) inset;
+    }
+  }
+  
+  /* Modificaciones específicas para el 8 de marzo */
+  .flower__fall-down--yellow {
+    animation: flower-fall-down-yellow 8s 1.2s linear forwards;
+  }
+  
+  .flower__fall-down--pink {
+    animation: flower-fall-down-pink 5s 1.2s linear forwards;
+  }
+  
+  .flower__fall-down--purple {
+    animation: flower-fall-down-purple 6s 1.2s linear forwards,
+      flower-falling 6s 7.2s linear infinite;
+  }

@@ -3,12 +3,319 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flor Animada</title>
+    <title>Feliz 8 de Marzo - Beatriz</title>
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/flower.css" />
     <link rel="stylesheet" href="css/animations.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%23ff69b4' d='M50,0 C65,35 100,50 50,100 C0,50 35,35 50,0 Z'/></svg>" type="image/svg+xml">
+
+    <style>
+      /* Fondo estrellado */
+      body {
+        background-image: linear-gradient(to bottom, #0a0228, #1a0329, #000005);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      /* Estrellas en el fondo */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+      
+      .star {
+        position: absolute;
+        background-color: #fff;
+        border-radius: 50%;
+        opacity: 0;
+        animation: twinkle var(--duration, 5s) infinite var(--delay, 0s);
+      }
+      
+      @keyframes twinkle {
+        0%, 100% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        50% {
+          opacity: var(--brightness, 0.7);
+          transform: scale(1);
+        }
+      }
+      
+      /* Botón de música */
+      .music-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 100;
+        transition: all 0.3s ease;
+      }
+      
+      .music-button svg {
+        width: 24px;
+        height: 24px;
+        color: #fff;
+      }
+      
+      .music-button:hover {
+        background-color: rgba(255, 255, 255, 0.4);
+        transform: scale(1.1);
+      }
+      
+      .music-button.playing svg {
+        color: #ffdb58;
+      }
+      
+      .message-container {
+        position: absolute;
+        top: 10vh;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 10;
+      }
+      
+      .message {
+        font-family: 'Dancing Script', cursive;
+        color: #ff69b4;
+        font-size: 5vmin;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: fadeInMessage 2s 3s forwards;
+      }
+      
+      .beatriz {
+        font-family: 'Dancing Script', cursive;
+        font-size: 8vmin;
+        margin-top: 2vmin;
+        text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        opacity: 0;
+        transform: scale(0.8);
+        animation: popIn 1.5s 5s forwards;
+        display: inline-block;
+      }
+      
+      /* Efecto de letras coloridas para Beatriz */
+      .beatriz span {
+        display: inline-block;
+        animation: colorChange 4s linear infinite;
+        animation-delay: calc(var(--i) * 0.2s);
+      }
+      
+      @keyframes colorChange {
+        0%, 100% {
+          color: #ffdb58;
+          text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+        25% {
+          color: #ff69b4;
+          text-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+        }
+        50% {
+          color: #87ceeb;
+          text-shadow: 0 0 15px rgba(135, 206, 235, 0.8);
+        }
+        75% {
+          color: #9370db;
+          text-shadow: 0 0 15px rgba(147, 112, 219, 0.8);
+        }
+      }
+      
+      .date {
+        font-family: 'Dancing Script', cursive;
+        color: #87ceeb;
+        font-size: 6vmin;
+        margin-top: 2vmin;
+        text-shadow: 0 0 12px rgba(135, 206, 235, 0.8);
+        opacity: 0;
+        animation: fadeInMessage 2s 4s forwards;
+      }
+      
+      @keyframes fadeInMessage {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      @keyframes popIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        70% {
+          opacity: 1;
+          transform: scale(1.1);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      
+      /* Contenedor de corazones */
+      .hearts {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 1;
+      }
+      
+      .heart {
+        position: absolute;
+        width: 1.5vmin;
+        height: 1.5vmin;
+        background-color: #ff69b4;
+        transform: rotate(45deg);
+        opacity: 0;
+        animation: float 10s linear infinite;
+      }
+      
+      .heart::before,
+      .heart::after {
+        content: "";
+        position: absolute;
+        width: 1.5vmin;
+        height: 1.5vmin;
+        background-color: #ff69b4;
+        border-radius: 50%;
+      }
+      
+      .heart::before {
+        top: -0.75vmin;
+        left: 0;
+      }
+      
+      .heart::after {
+        top: 0;
+        left: -0.75vmin;
+      }
+      
+      @keyframes float {
+        0% {
+          transform: rotate(45deg) translateY(0) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: rotate(45deg) translateY(-100vh) translateX(20px);
+          opacity: 0;
+        }
+      }
+      
+      /* Pétalos y confeti */
+      .petals-container {
+        position: fixed;
+        top: -10vh;
+        left: 0;
+        width: 100%;
+        height: 120vh;
+        pointer-events: none;
+        z-index: 2;
+      }
+      
+      .petal {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.8;
+        animation: fallDown 15s linear infinite;
+      }
+      
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        animation: fallDown 8s linear infinite;
+      }
+      
+      @keyframes fallDown {
+        0% {
+          transform: translateY(-5vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.8;
+        }
+        90% {
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(120vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+      
+      /* Cambiamos el color de las flores para el 8 de marzo */
+      .flower__leaf {
+        background-image: linear-gradient(to bottom, #ff86c9, #ff69b4, #1a233a 99%);
+      }
+      
+      /* El centro de la flor será amarillo */
+      .flower__leaf--1 {
+        background-color: #ffdb58;
+        background-image: linear-gradient(to bottom, #ffdb58, #ffd700, #1a233a 99%);
+      }
+    </style>
   </head>
   <body>
+    <div class="stars" id="starsContainer"></div>
+    
+    <div class="message-container">
+      <h1 class="message">Flores para una mujer extraordinaria</h1>
+      <h2 class="date">Feliz 8 de Marzo</h2>
+      <h1 class="beatriz">
+        <span style="--i:1">B</span>
+        <span style="--i:2">e</span>
+        <span style="--i:3">a</span>
+        <span style="--i:4">t</span>
+        <span style="--i:5">r</span>
+        <span style="--i:6">i</span>
+        <span style="--i:7">z</span>
+      </h1>
+    </div>
+    
+    <div class="hearts" id="heartsContainer"></div>
+    <div class="petals-container" id="petalsContainer"></div>
+    
+    <!-- Botón de reproducción de música -->
+    <div class="music-button" id="musicButton">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18V5l12-2v13"></path>
+        <circle cx="6" cy="18" r="3"></circle>
+        <circle cx="18" cy="16" r="3"></circle>
+      </svg>
+    </div>
+    
     <div class="flower-container">
       <!-- Flor 1 -->
       <div class="flower">
@@ -30,7 +337,6 @@
       </div>
 
       <!-- Flor 2 -->
-
       <div class="flower f-wrapper--2">
         <div class="flower__line"></div>
         <div class="f">
@@ -66,12 +372,199 @@
 
       <div class="flower__glass"></div>
     </div>
-    <audio id="cancionFlores" src="assets\floresAmarillas.m4a"></audio>
+    
+    <audio id="cancionFlores" src="assets\floresAmarillas.m4a" loop></audio>
+    
     <script>
-      // Detectar el primer clic para reproducir el audio
-      document.body.addEventListener("click", () => {
-        const audio = document.getElementById("cancionFlores");
-        audio.play();
+      // Crear estrellas para el fondo
+      const starsContainer = document.getElementById('starsContainer');
+      
+      function createStars() {
+        for (let i = 0; i < 150; i++) {
+          const star = document.createElement('div');
+          star.classList.add('star');
+          
+          // Tamaño aleatorio
+          const size = Math.random() * 3 + 1;
+          star.style.width = `${size}px`;
+          star.style.height = `${size}px`;
+          
+          // Posición aleatoria
+          star.style.left = `${Math.random() * 100}%`;
+          star.style.top = `${Math.random() * 100}%`;
+          
+          // Duración y retraso aleatorios para el parpadeo
+          star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+          star.style.setProperty('--delay', `${Math.random() * 5}s`);
+          star.style.setProperty('--brightness', `${Math.random() * 0.5 + 0.5}`);
+          
+          starsContainer.appendChild(star);
+        }
+      }
+      
+      // Crear corazones flotantes
+      const heartsContainer = document.getElementById('heartsContainer');
+      
+      function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        
+        // Posición aleatoria horizontal
+        heart.style.left = Math.random() * 100 + 'vw';
+        // Retraso aleatorio para la animación
+        heart.style.animationDelay = Math.random() * 10 + 's';
+        // Tamaño aleatorio
+        const size = (Math.random() * 1.5) + 0.8 + 'vmin';
+        heart.style.width = size;
+        heart.style.height = size;
+        
+        // Color aleatorio (diferentes tonos de rosa)
+        const hue = 330 + Math.random() * 30; // Tonos de rosa
+        const saturation = 70 + Math.random() * 30;
+        const lightness = 60 + Math.random() * 20;
+        const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        
+        heart.style.backgroundColor = color;
+        
+        // También cambiar el color de los pseudoelementos
+        const style = document.createElement('style');
+        const id = 'heart-' + Math.random().toString(36).substr(2, 9);
+        heart.id = id;
+        
+        style.textContent = `
+          #${id}::before, #${id}::after {
+            background-color: ${color};
+          }
+        `;
+        
+        document.head.appendChild(style);
+        heartsContainer.appendChild(heart);
+        
+        // Eliminar el corazón después de la animación
+        setTimeout(() => {
+          heart.remove();
+          style.remove();
+        }, 10000);
+      }
+      
+      // Crear pétalos y confeti
+      const petalsContainer = document.getElementById('petalsContainer');
+      const petalColors = ['#ff69b4', '#ffb6c1', '#ffc0cb', '#db7093', '#ff1493'];
+      const confetiColors = ['#ffd700', '#87ceeb', '#ff69b4', '#9370db', '#9932cc'];
+      
+      function createPetal() {
+        // Decidir si crear un pétalo o confeti
+        const isPetal = Math.random() > 0.5;
+        
+        const element = document.createElement('div');
+        if (isPetal) {
+          element.classList.add('petal');
+          
+          // Forma del pétalo con SVG
+          const petalColor = petalColors[Math.floor(Math.random() * petalColors.length)];
+          const rotation = Math.random() * 360;
+          element.style.backgroundImage = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path fill='${petalColor.replace('#', '%23')}' d='M15,0 C20,10 30,15 15,30 C0,15 10,10 15,0 Z' /></svg>")`;
+          element.style.transform = `rotate(${rotation}deg)`;
+        } else {
+          element.classList.add('confetti');
+          const confettiColor = confetiColors[Math.floor(Math.random() * confetiColors.length)];
+          element.style.backgroundColor = confettiColor;
+          
+          // Forma aleatoria para el confeti
+          const shapes = ['square', 'rectangle', 'circle', 'triangle'];
+          const shape = shapes[Math.floor(Math.random() * shapes.length)];
+          
+          switch(shape) {
+            case 'square':
+              // Ya es cuadrado por defecto
+              break;
+            case 'rectangle':
+              element.style.width = '12px';
+              element.style.height = '6px';
+              break;
+            case 'circle':
+              element.style.borderRadius = '50%';
+              break;
+            case 'triangle':
+              element.style.width = '0';
+              element.style.height = '0';
+              element.style.backgroundColor = 'transparent';
+              element.style.borderLeft = '5px solid transparent';
+              element.style.borderRight = '5px solid transparent';
+              element.style.borderBottom = `10px solid ${confettiColor}`;
+              break;
+          }
+        }
+        
+        // Posición aleatoria horizontal
+        element.style.left = (Math.random() * 100) + '%';
+        
+        // Velocidad aleatoria para la caída
+        const duration = isPetal ? (Math.random() * 10 + 10) : (Math.random() * 5 + 3);
+        element.style.animationDuration = `${duration}s`;
+        
+        // Retraso aleatorio
+        element.style.animationDelay = `${Math.random() * 5}s`;
+        
+        petalsContainer.appendChild(element);
+        
+        // Eliminar el elemento después de la animación
+        setTimeout(() => {
+          element.remove();
+        }, duration * 1000);
+      }
+      
+      // Crear elementos iniciales y comenzar intervalos
+      createStars();
+      
+      // Inicialmente crear algunos corazones
+      for (let i = 0; i < 20; i++) {
+        createHeart();
+      }
+      
+      // Crear corazones periódicamente
+      setInterval(createHeart, 300);
+      
+      // Crear pétalos y confeti periódicamente
+      setInterval(createPetal, 200);
+      
+      // Botón de reproducción de música
+      const musicButton = document.getElementById('musicButton');
+      const audio = document.getElementById("cancionFlores");
+      
+      // Preparar el audio para que esté listo
+      audio.load();
+      audio.loop = true;
+      audio.volume = 1.0; // Volumen al máximo
+      
+      // Precargamos el audio para una reproducción inmediata
+      audio.preload = "auto";
+      
+      let isPlaying = false;
+      
+      musicButton.addEventListener('click', () => {
+        if (isPlaying) {
+          audio.pause();
+          musicButton.classList.remove('playing');
+        } else {
+          // Reproducción de golpe
+          audio.currentTime = 0;
+          
+          // Intento de reproducción inmediata
+          let playPromise = audio.play();
+          
+          if (playPromise !== undefined) {
+            playPromise.then(_ => {
+              // La reproducción comenzó con éxito
+              musicButton.classList.add('playing');
+            })
+            .catch(error => {
+              // Auto-play fue impedido por el navegador
+              console.log('Error al reproducir audio:', error);
+            });
+          }
+        }
+        isPlaying = !isPlaying;
       });
     </script>
   </body>
