@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Feliz 8 de Marzo</title>
+    <title>Feliz 8 de Marzo - Beatriz</title>
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/flower.css" />
     <link rel="stylesheet" href="css/animations.css" />
@@ -373,7 +373,7 @@
       <div class="flower__glass"></div>
     </div>
     
-    <audio id="cancionFlores" src="assets\floresAmarillas.m4a" loop></audio>
+    <audio id="cancionFlores" src="assets\floresAmarillas.m4a" loop autoplay></audio>
     
     <script>
       // Crear estrellas para el fondo
@@ -528,41 +528,47 @@
       // Crear pétalos y confeti periódicamente
       setInterval(createPetal, 200);
       
-      // Botón de reproducción de música
-      const musicButton = document.getElementById('musicButton');
+      // Reproducción automática de música
       const audio = document.getElementById("cancionFlores");
+      const musicButton = document.getElementById('musicButton');
       
-      // Preparar el audio para que esté listo
+      // Preparar el audio para reproducción automática
       audio.load();
       audio.loop = true;
       audio.volume = 1.0; // Volumen al máximo
-      
-      // Precargamos el audio para una reproducción inmediata
       audio.preload = "auto";
+      audio.muted = false; // Asegurarse de que no está silenciado
       
-      let isPlaying = false;
+      // Marcar el botón como activo desde el inicio
+      musicButton.classList.add('playing');
+      let isPlaying = true;
       
+      // Intentar reproducir automáticamente
+      window.addEventListener('load', () => {
+        // Necesitamos un pequeño retraso para algunos navegadores
+        setTimeout(() => {
+          let playPromise = audio.play();
+          
+          if (playPromise !== undefined) {
+            playPromise.catch(error => {
+              // Si falla la reproducción automática (políticas del navegador)
+              console.log('Reproducción automática bloqueada:', error);
+              musicButton.classList.remove('playing');
+              isPlaying = false;
+            });
+          }
+        }, 100);
+      });
+      
+      // El botón ahora funciona como un toggle
       musicButton.addEventListener('click', () => {
         if (isPlaying) {
           audio.pause();
           musicButton.classList.remove('playing');
         } else {
-          // Reproducción de golpe
           audio.currentTime = 0;
-          
-          // Intento de reproducción inmediata
-          let playPromise = audio.play();
-          
-          if (playPromise !== undefined) {
-            playPromise.then(_ => {
-              // La reproducción comenzó con éxito
-              musicButton.classList.add('playing');
-            })
-            .catch(error => {
-              // Auto-play fue impedido por el navegador
-              console.log('Error al reproducir audio:', error);
-            });
-          }
+          audio.play().catch(e => console.log('Error al reproducir audio:', e));
+          musicButton.classList.add('playing');
         }
         isPlaying = !isPlaying;
       });
